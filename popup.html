@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Classifier</title>
+    <style>
+        body {
+            width: 300px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Text Classifier</h1>
+    <button id="classify-button">Classify Text</button>
+    <pre id="result"></pre>
+
+    <script>
+        document.getElementById('classify-button').addEventListener('click', () => {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                chrome.scripting.executeScript({
+                    target: { tabId: tabs[0].id },
+                    files: ['content.js']
+                });
+            });
+        });
+
+        chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+            if (request.result) {
+                document.getElementById('result').textContent = JSON.stringify(request.result, null, 2);
+            }
+        });
+    </script>
+</body>
+</html>

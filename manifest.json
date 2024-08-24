@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+    "name": "Blackwall",
+    "version": "1.0",
+    "description": "Extracts text from current webpage and classifies it based on whether its AI generated or human written.",
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    }
+}
